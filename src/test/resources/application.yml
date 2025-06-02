@@ -1,0 +1,10 @@
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/webflux?schema=anime
+    username: postgres
+    password: postgres
+
+logging:
+  level:
+    org:
+      springframework: INFO

@@ -49,7 +49,7 @@ public class AnimeController {
 
     @PostMapping("batch")
     @ResponseStatus(HttpStatus.CREATED)
-    public Flux<Anime> saveBatch(@RequestBody List<Anime> animes) {
+    public Flux<Anime> saveBatch(@RequestBody @Valid List<Anime> animes) {
         return animeService.saveAll(animes);
     }
 
