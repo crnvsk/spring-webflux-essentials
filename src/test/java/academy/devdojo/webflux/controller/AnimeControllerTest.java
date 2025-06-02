@@ -1,5 +1,6 @@
 package academy.devdojo.webflux.controller;
 
+import java.util.List;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 
@@ -52,6 +53,10 @@ public class AnimeControllerTest {
         BDDMockito.when(animeServiceMock.save(AnimeCreator.createAnimeToBeSaved()))
                 .thenReturn(Mono.just(anime));
 
+        BDDMockito.when(animeServiceMock
+                .saveAll(List.of(AnimeCreator.createAnimeToBeSaved(), AnimeCreator.createAnimeToBeSaved())))
+                .thenReturn(Flux.just(anime, anime));
+
         BDDMockito.when(animeServiceMock.delete(ArgumentMatchers.anyInt()))
                 .thenReturn(Mono.empty());
 
@@ -101,6 +106,17 @@ public class AnimeControllerTest {
         StepVerifier.create(animeController.save(animeToBeSaved))
                 .expectSubscription()
                 .expectNext(anime)
+                .verifyComplete();
+    }
+
+    @Test
+    @DisplayName("saveBatch creates a list of anime when successful")
+    public void saveBatch_CreatesListOfAnime_WhenSuccessful() {
+        Anime animeToBeSaved = AnimeCreator.createAnimeToBeSaved();
+
+        StepVerifier.create(animeController.saveBatch(List.of(animeToBeSaved, animeToBeSaved)))
+                .expectSubscription()
+                .expectNext(anime, anime)
                 .verifyComplete();
     }
 

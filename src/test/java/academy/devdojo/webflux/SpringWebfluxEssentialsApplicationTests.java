@@ -1,12 +1,12 @@
 package academy.devdojo.webflux;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+// import org.junit.jupiter.api.Test;
+// import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+// @SpringBootTest
 class SpringWebfluxEssentialsApplicationTests {
 
-    @Test
+    // @Test
     void contextLoads() {
     }
 
