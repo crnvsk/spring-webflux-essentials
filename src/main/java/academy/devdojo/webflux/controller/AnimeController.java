@@ -1,6 +1,7 @@
 package academy.devdojo.webflux.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,6 +24,11 @@ public class AnimeController {
     @GetMapping
     private Flux<Anime> listAll() {
         return animeService.findAll();
+    }
+
+    @GetMapping(path = "/{id}")
+    private Mono<Anime> findById(@PathVariable int id) {
+        return animeService.findById(id);
     }
 
 }
