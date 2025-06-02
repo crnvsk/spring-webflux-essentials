@@ -1,6 +1,7 @@
 package academy.devdojo.webflux.controller;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,10 +43,15 @@ public class AnimeController {
         return animeService.save(anime);
     }
 
-    @PutMapping
+    @PutMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Mono<Void> update(@Valid @RequestBody Anime anime) {
-        return animeService.update(anime);
+    public Mono<Void> update(@PathVariable int id, @Valid @RequestBody Anime anime) {
+        return animeService.update(anime.withId(id));
     }
 
+    @DeleteMapping(path = "/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Mono<Void> delete(@PathVariable int id) {
+        return animeService.delete(id);
+    }
 }
