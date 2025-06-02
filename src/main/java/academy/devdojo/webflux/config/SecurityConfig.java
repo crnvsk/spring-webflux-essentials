@@ -22,6 +22,8 @@ public class SecurityConfig {
 				.csrf(csrf -> csrf.disable())
 				.authorizeExchange(exchanges -> exchanges
 						.pathMatchers(HttpMethod.POST, "/animes/**").hasRole("ADMIN")
+						.pathMatchers(HttpMethod.PUT, "/animes/**").hasRole("ADMIN")
+						.pathMatchers(HttpMethod.DELETE, "/animes/**").hasRole("ADMIN")
 						.pathMatchers(HttpMethod.GET, "/animes/**").hasRole("USER")
 						.anyExchange().authenticated())
 				.formLogin(Customizer.withDefaults())
