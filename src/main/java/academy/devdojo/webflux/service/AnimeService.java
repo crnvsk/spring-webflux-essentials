@@ -1,6 +1,8 @@
 package academy.devdojo.webflux.service;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import academy.devdojo.webflux.domain.Anime;
 import academy.devdojo.webflux.repository.AnimeRepository;
@@ -20,7 +22,9 @@ public class AnimeService {
     }
 
     public Mono<Anime> findById(int id) {
-        return animeRepository.findById(id);
+        return animeRepository.findById(id)
+                .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Anime not found")))
+                .log();
     }
 
 }
